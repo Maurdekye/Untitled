@@ -5,7 +5,7 @@
 -- Be cautious of clashing rounds though, someones code might do one thing, which anothers will clash with.
 -- Not sure how useful it will be, but wanted to add something here and this is all I could think of.
 -- Untested.
-if CLIENT return end
+if CLIENT then return end
 ROUNDS = {}
 
 -- uniqueID is how it's located in the rounds table, make it unique,
