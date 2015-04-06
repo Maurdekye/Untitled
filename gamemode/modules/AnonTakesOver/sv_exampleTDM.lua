@@ -21,20 +21,20 @@ TDM.funcs = {
 
 hook.Add("RoundEnd", "Anon_RoundExample", function( name )
 	if name == "tdm" then PrintMessage
-end
+end)
 
 hook.Add("RoundChanged", "Anon_RoundExample", function( name, st )
 	if name == "tdm" then
 		TDM.State = st
 	end
-end
+end)
 
 hook.Add("PlayerDeath", "Anon_RoundExample", function( vic, _, att )
 	if vic:IsPlayer() and att:IsPlayer() and vic ~= att and TDM.State == 1 then
 		att.tdmKills = (att.tdmKills || 0) + 1
 		if att.tdmKills >= TDM.KillsToWin then ROUNDS:End( "tdm" ) end
 	end
-end
+end)
 
 hook.Add("Initialize", "Anon_RoundExample", function()
 	if ROUNDS then
