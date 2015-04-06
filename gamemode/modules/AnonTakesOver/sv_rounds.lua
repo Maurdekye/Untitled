@@ -27,7 +27,7 @@ end
 function ROUNDS.NextRound( self, name )
 	if timer.Exists( name .. "_RoundTimer" ) then timer.Destroy( name .. "_RoundTimer" ) end
 	local round = self[name]
-	if round.state + 1 > round.rounds then return false end
+	if round.state + 1 > round.rounds then self:End(name) return false end
 	self[name].state = round.state + 1
 	if round.funcs[round.state] then round.funcs[round.state]() end
 	hook.Call( "RoundChanged", nil, name, round.state )
