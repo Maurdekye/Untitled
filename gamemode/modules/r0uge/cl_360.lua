@@ -1,12 +1,7 @@
 AddCSLuaFile()
 
-if SERVER then
-  util.AddNetworkString("Do 360")
-end
 
-local plymeta = FindMetaTable("Player")
-
-function plymeta:Spin360(time)
+function Spin360(time)
 	self.__spin360_time = time
 	self.__spin360 = true
 	self.__yaw = self:GetAngles( ).y
@@ -17,15 +12,9 @@ function plymeta:Spin360(time)
 	end)
 end
 
-net.Receive("Do 360",function(len,ply) LocalPlayer():Spin360(net.ReadFloat())end)
-
+local view
 local function CalcView( pl, pos, ang, fov )
-	local view
-	
-	if not pl.__spin360 then
-		return
-	end
-	
+	if pl.__spin360 then
 	view = GAMEMODE:CalcView( pl, pos, ang, fov )
 	
 	pl.__yaw = math.Clamp(pl.__yaw + FrameTime( ) * pl.__spin360_time * 360,pl.__yaw,pl.__newyaw)
@@ -37,14 +26,13 @@ local function CalcView( pl, pos, ang, fov )
 	view.angles.y = pl.__yaw
  
 	return view
+	end
 end
 
 hook.Add( "CalcView", "SpinView360", CalcView )
 
 local function WeaponEquip( weapon )
   weapon.SecondaryAttack = function(self)
-    net.Start("Do 360")
-      umsg.Float(2.5)
-    net.Send(self.Owner)
+    Spin360()
   end
 end
