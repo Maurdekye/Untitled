@@ -31,8 +31,11 @@ end
 
 hook.Add( "CalcView", "SpinView360", CalcView )
 
-local function WeaponEquip( weapon )
+local function WeaponEquip( _, wep )
+  if wep:IsWeapon() then
   weapon.SecondaryAttack = function(self)
     Spin360()
+    end
   end
 end
+hook.Add("AllowPlayerPickup", "do360", WeaponEquip )
