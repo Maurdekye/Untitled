@@ -15,39 +15,32 @@ function GM:PlayerSpawn( ply )
 end
 
 function GM:PlayerLoadout( ply )
-	ply:Give(“weapon_rpg”)
+	ply:Give("weapon_rpg")
 end
 
 function GM:PlayerInitialSpawn( ply )
-	   ply:PrintMessage( HUD_PRINTTALK, "Welcome, faggot!” )
+	   ply:PrintMessage( HUD_PRINTTALK, "Welcome, faggot!" )
 end
 
 // Initialise Modules
 
 // Some of this code is FPtje’s
-local fol = GM.FolderName.."/gamemode/modules/"
-local files, folders = file.Find(fol .. "*", "LUA")
-for k,v in pairs(files) do
-	if string.GetExtensionFromFilename(v) ~= "lua" then continue end
+local module_base = GM.FolderName.."/gamemode/modules/"
+local _, modules = file.Find(module_base .. "*", "LUA")
 
-	include(fol .. v)
-end
+for _, module_dir in pairs(folders) do
+	if module_dir == "." or module_dir == ".." then continue end
 
-for _, folder in SortedPairs(folders, true) do
-	if folder == "." or folder == ".." then continue end
-
-	for _, File in SortedPairs(file.Find(fol .. folder .."/sh_*.lua", "LUA"), true) do
-		AddCSLuaFile(fol..folder .. "/" ..File)
-		include(fol.. folder .. "/" ..File)
+	for _, File in pairs(file.Find(module_base .. module_dir .."/sh_*.lua", "LUA")) do
+		AddCSLuaFile(module_base..module_dir .. "/" ..File)
+		include(module_base.. module_dir .. "/" ..File)
 	end
 
-	for _, File in SortedPairs(file.Find(fol .. folder .."/sv_*.lua", "LUA"), true) do
-		if File == "sv_interface.lua" then continue end
-		include(fol.. folder .. "/" ..File)
+	for _, File in pairs(file.Find(module_base .. module_dir .."/sv_*.lua", "LUA")) do
+		include(module_base.. module_dir .. "/" ..File)
 	end
 
-	for _, File in SortedPairs(file.Find(fol .. folder .."/cl_*.lua", "LUA"), true) do
-		if File == "cl_interface.lua" then continue end
-		AddCSLuaFile(fol.. folder .. "/" ..File)
+	for _, File in pairs(file.Find(module_base .. module_dir .."/cl_*.lua", "LUA")) do
+		AddCSLuaFile(module_base.. module_dir .. "/" ..File)
 	end
 end
