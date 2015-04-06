@@ -23,7 +23,7 @@ function ROUNDS.Start( self, uniqueID, times, funcs, displayName )
 	return true
 end
 
-// Call to force the next round on a round system
+-- Call to force the next round on a round system
 function ROUNDS.NextRound( self, name )
 	if timer.Exists( name .. "_RoundTimer" ) then timer.Destroy( name .. "_RoundTimer" ) end
 	local round = self[name]
@@ -36,7 +36,7 @@ function ROUNDS.NextRound( self, name )
 	return true
 end
 
-// Call to end a round system.
+-- Call to end a round system.
 function ROUNDS.End( self, name )
 	self[name] = {}
 	timer.Destroy( name .. "_RoundTimer" )
