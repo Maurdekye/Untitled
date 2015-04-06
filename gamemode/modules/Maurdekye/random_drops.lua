@@ -86,12 +86,7 @@ if SERVER then
 		end )
 
 		timer.Create( "drop_spawn_timer", GetConVarNumber("item_drop_frequency"), 0, function( )
-			local drop = spawnDrop( )
-			if drop == nil then
-				print( "Could not spawn new drop" )
-			else
-				print( spawned_drops[ drop ]:GetClass( ) .. " created at " .. tostring(spawned_drops[ drop ]:GetPos( )) )
-			end
+			spawnDrop( )
 		end )
 
 		print( "Item Drop Timers Initialized" )
