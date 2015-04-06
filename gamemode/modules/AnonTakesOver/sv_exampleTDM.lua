@@ -19,8 +19,8 @@ TDM.funcs = {
 	end
 }
 
-hook.Add("RoundEnd", "Anon_RoundExample", function( name )
-	if name == "tdm" then PrintMessage
+hook.Add("RoundEnded", "Anon_RoundExample", function( name )
+	if name == "tdm" then PrintMessage( HUD_PRINTTALK, "TDM has ended" ) end
 end)
 
 hook.Add("RoundChanged", "Anon_RoundExample", function( name, st )
