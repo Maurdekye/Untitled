@@ -1,0 +1,11 @@
+"Untitled"
+{
+	"base"		"base"
+	"title"		"Untitled"
+	"maps"		"^bg_"
+	"menusystem"	"1"
+	"settings"
+	{
+
+	}
+}
