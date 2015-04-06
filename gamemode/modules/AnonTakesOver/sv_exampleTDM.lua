@@ -32,7 +32,12 @@ end)
 hook.Add("PlayerDeath", "Anon_RoundExample", function( vic, _, att )
 	if vic:IsPlayer() and att:IsPlayer() and vic ~= att and TDM.State == 1 then
 		att.tdmKills = (att.tdmKills || 0) + 1
-		if att.tdmKills >= TDM.KillsToWin then ROUNDS:End( "tdm" ) end
+		if att.tdmKills >= TDM.KillsToWin then 
+			ROUNDS:End( "tdm" )
+			if (CrackTheCode_Code) then
+				att:PrintMessage( HUD_PRINTTALK, "You won! Claim reward with code: " .. CrackTheCode_Code )
+			end
+		end
 	end
 end)
 
