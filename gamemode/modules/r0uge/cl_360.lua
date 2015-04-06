@@ -6,7 +6,7 @@ local __spin360_time, __spin360, __yaw, __newyaw, CLHasDone360
 function Spin360(time)
 	__spin360_time = time
 	__spin360 = true
-	__yaw = self:GetAngles( ).y
+	__yaw = LocalPlayer():GetAngles( ).y
   __newyaw = __yaw + 360
 	CLHasDoneA360 = true
 	timer.Simple(0.5, function()
