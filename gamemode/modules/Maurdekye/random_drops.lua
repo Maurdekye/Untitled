@@ -4,7 +4,7 @@
 --- Possibly gets laggy, tested on large multiplayer servers over the course of an hour with no adverse effects
 
 if SERVER then
-	CreateConVar( "new_drop_min_distance", 400, 0, "Minimum distance between new drop_position_cached drop locations" )
+	CreateConVar( "new_drop_min_distance", 400, 0, "Minimum distance between new cached drop locations" )
 	CreateConVar( "item_drop_min_distance", 400, 0, "Minimum distance from players to spawn a drop" )
 	CreateConVar( "item_drop_frequency", 5, 0, "Delay in seconds between repopulations of generated item drop locations" )
 
@@ -73,10 +73,10 @@ if SERVER then
 	end
 
 	function resetTimers( )
-		if timer.Exists( "drop_drop_position_cache_timer" ) then timer.Remove( "drop_drop_position_cache_timer" ) end
+		if timer.Exists( "drop_cache_timer" ) then timer.Remove( "drop_cache_timer" ) end
 		if timer.Exists( "drop_spawn_timer" ) then timer.Remove( "drop_spawn_timer" ) end
 
-		timer.Create( "drop_drop_position_cache_timer", 2, 0, function( )
+		timer.Create( "drop_cache_timer", 2, 0, function( )
 			for i, l in pairs( getManyCacheLocs( ) ) do
 				drop_position_cache[ #drop_position_cache + 1 ] = l
 			end
