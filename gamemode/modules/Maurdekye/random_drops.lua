@@ -30,14 +30,12 @@ if SERVER then
 		return arr[ math.random( #arr ) ]
 	end
 
-	function getNewCacheLoc( )
+	function getManyCacheLocs( )
+		local locs = { }
 		local dist = math.pow( GetConVarNumber( "new_drop_min_distance" ), 2 )
 		for i, p in pairs( player.GetAll( ) ) do
 			if p:IsOnGround( ) then
 				local newLoc = p:GetPos( ) + Vector( 0, 10, 0 )
-				if #cache == 0 then
-					return newLoc
-				end
 				local valid = true
 				for i, dl in pairs( cache ) do
 					if p:GetPos():DistToSqr( dl ) < dist then
@@ -46,11 +44,11 @@ if SERVER then
 					end
 				end
 				if valid then
-					return newLoc
+					locs[ #locs + 1 ] = newLoc
 				end
 			end
 		end
-		return nil
+		return locs
 	end
 
 	function spawnDrop( )
@@ -79,15 +77,12 @@ if SERVER then
 		if timer.Exists( "drop_spawn_timer" ) then timer.Remove( "drop_spawn_timer" ) end
 
 		timer.Create( "drop_cache_timer", 2, 0, function( )
-			local newPos = getNewCacheLoc( )
-			if newPos ~= nil then
-				cache[ #cache + 1 ] = newPos
+			for i, l in pairs( getManyCacheLocs( ) ) do
+				cache[ #cache + 1 ] = l
 			end
 		end )
 
-		timer.Create( "drop_spawn_timer", GetConVarNumber("item_drop_frequency"), 0, function( )
-			spawnDrop( )
-		end )
+		timer.Create( "drop_spawn_timer", GetConVarNumber( "item_drop_frequency" ), 0, spawnDrop )
 
 		print( "Item Drop Timers Initialized" )
 	end
