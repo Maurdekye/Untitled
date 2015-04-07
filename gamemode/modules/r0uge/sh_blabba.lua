@@ -76,7 +76,7 @@ local function playVoice(ply,text,accent,translateFrom,translateTo)
 	end
 end
 
-hook.Add("OnPlayerChat", "Blabber", function(ply, text, isTeamChat, isDead)
+hook.Add("OnPlayerChat", "Blabba", function(ply, text, isTeamChat, isDead)
 	if ply:IsValid() then
 		if text:sub(1,1) == "[" and text:sub(4,4) == "," and text:sub(7,7) == "," and text:sub(10,10) == "]" then
 			accent = text:sub(2,3)
