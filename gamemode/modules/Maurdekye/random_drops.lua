@@ -1,12 +1,12 @@
 --- Random item drop system
---- Uses player movement information to cache locations around a map
+--- Uses player movement information to drop_position_cache locations around a map
 --- Spawns random pickups at those locations in random intervals
 --- Possibly gets laggy, tested on large multiplayer servers over the course of an hour with no adverse effects
 
 if SERVER then
-	CreateConVar( "new_drop_min_distance", 400, 0, "Minimum distance between new cached drop locations" )
+	CreateConVar( "new_drop_min_distance", 400, 0, "Minimum distance between new drop_position_cached drop locations" )
 	CreateConVar( "item_drop_min_distance", 400, 0, "Minimum distance from players to spawn a drop" )
-	CreateConVar( "item_drop_frequency", 10, 0, "Delay in seconds between repopulations of generated item drop locations" )
+	CreateConVar( "item_drop_frequency", 5, 0, "Delay in seconds between repopulations of generated item drop locations" )
 
 	drops = {
 		"item_ammo_357",
@@ -23,8 +23,8 @@ if SERVER then
 		"item_battery"
 	}
 
-	cache = { }
-	spawned_drops = { }
+	drop_position_cache = drop_position_cache or { }
+	spawned_drops = spawned_drops or { }
 
 	function randItem( arr )
 		return arr[ math.random( #arr ) ]
@@ -37,7 +37,7 @@ if SERVER then
 			if p:IsOnGround( ) then
 				local newLoc = p:GetPos( ) + Vector( 0, 10, 0 )
 				local valid = true
-				for i, dl in pairs( cache ) do
+				for i, dl in pairs( drop_position_cache ) do
 					if p:GetPos():DistToSqr( dl ) < dist then
 						valid = false
 						break
@@ -53,7 +53,7 @@ if SERVER then
 
 	function spawnDrop( )
 		local dist = math.pow( GetConVarNumber( "item_drop_min_distance" ), 2 )
-		for i, dl in pairs( cache ) do
+		for i, dl in pairs( drop_position_cache ) do
 			local succeed = true
 			for j, p in pairs( player.GetAll( ) ) do
 				if dl:DistToSqr( p:GetPos( ) ) < dist or IsValid( spawned_drops[ dl ] ) then
@@ -73,12 +73,12 @@ if SERVER then
 	end
 
 	function resetTimers( )
-		if timer.Exists( "drop_cache_timer" ) then timer.Remove( "drop_cache_timer" ) end
+		if timer.Exists( "drop_drop_position_cache_timer" ) then timer.Remove( "drop_drop_position_cache_timer" ) end
 		if timer.Exists( "drop_spawn_timer" ) then timer.Remove( "drop_spawn_timer" ) end
 
-		timer.Create( "drop_cache_timer", 2, 0, function( )
+		timer.Create( "drop_drop_position_cache_timer", 2, 0, function( )
 			for i, l in pairs( getManyCacheLocs( ) ) do
-				cache[ #cache + 1 ] = l
+				drop_position_cache[ #drop_position_cache + 1 ] = l
 			end
 		end )
 
