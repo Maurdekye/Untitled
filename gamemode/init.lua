@@ -15,7 +15,7 @@ function GM:PlayerSpawn( ply )
 end
 
 function GM:PlayerLoadout( ply )
-	ply:Give("weapon_rpg")
+	ply:Give("bane_propshooter")
 end
 
 function GM:PlayerInitialSpawn( ply )
