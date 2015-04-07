@@ -1,3 +1,6 @@
+-- NOTE: THIS IS SUBJECT TO CHANGE, I AM GOING TO CHANGE THIS CODE TO BE OOP ON THE 11TH/12TH. MEANING THAT WHEN A ROUND IS CREATED
+-- IT WILL RETURN AN OBJECT THAT WILL CONTAIN ALL THE FUNCTIONS AND VARIABLES. IT IS A MUCH BETTER SYSTEM FOR THIS
+
 -- Simple rounds, had to re-write it, lost it due to internet dropout.
 -- System can be used for gamemodes, rounds etc, can be used for minigames inside of a gamemode.
 -- Let's say we have a TDM gamemode, this system can be used for a special round system, like gun game.
@@ -43,3 +46,4 @@ function ROUNDS.End( self, name )
 	hook.Call( "RoundEnd", nil, name )
 	return true
 end
+
