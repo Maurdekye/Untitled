@@ -3,6 +3,9 @@ if SERVER then
 		if attacker:IsPlayer() and attacker ~= killed and attacker:Alive() then
 			attacker:SetPos( killed:GetPos() )
 			attacker:SetAngles( killed:GetAngles() )
+			local killedWeapon = killed:GetActiveWeapon():GetClass()
+			attacker:Give( killedWeapon )
+			attacker:SelectWeapon( killedWeapon )
 		end
 	end )
 end
