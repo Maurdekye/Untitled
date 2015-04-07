@@ -19,12 +19,12 @@ function GM:PlayerLoadout( ply )
 end
 
 function GM:PlayerInitialSpawn( ply )
-	   ply:PrintMessage( HUD_PRINTTALK, "Welcome, faggot!" )
+	ply:PrintMessage( HUD_PRINTTALK, "Welcome, faggot!" )
 end
 
-// Initialise Modules
+-- Initialise Modules
 
-// Some of this code is FPtje’s
+-- Some of this code is FPtje’s
 print("Loading modules...")
 
 local module_base = GM.FolderName.."/gamemode/modules/"
